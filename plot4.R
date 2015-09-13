@@ -12,6 +12,12 @@ df <- df[df$Date == "1/2/2007" | df$Date == "2/2/2007", ]
 # Fixing the Global_active_power variable, to prepare for plotting.
 df$Global_active_power <- as.numeric(as.character(df$Global_active_power))
 
+# Using lubridate to fix the Date variable and create a new variable called DateTime.
+df$Date <- dmy(df$Date)
+df$DateTime <- as.POSIXct(paste(as.Date(df$Date),
+                                df$Time), 
+                          format = "%Y-%m-%d %H:%M:%S")
+
 png("plot4.png", width = 480, height = 480)
 
 # Setup the window to display 4 plots in a 2x2 grid.
